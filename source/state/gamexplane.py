@@ -15,7 +15,7 @@ class Menu(tool.State):#모든 시간이 0으로 되어있는 tool의 시간
         self.setupOption()
 
     def setupBackground(self):
-        frame_rect = [40, -10, 800, 600]#[80,0,800,600]
+        frame_rect = [30, -10, 800, 600]#[80,0,800,600]
         self.bg_image = tool.get_image(tool.GFX[c.FIRST_EXPLANE_IMAGE], *frame_rect)#MAIN_MENU_IMAGE 이미지 가지고 와줌
         self.bg_rect = self.bg_image.get_rect()#이미지 크기 구해줌
         self.bg_rect.x = 0#메인 메뉴의 이미지 시작부분(값 바꾸면 밀림)

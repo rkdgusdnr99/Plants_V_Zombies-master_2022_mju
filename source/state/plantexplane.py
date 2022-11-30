@@ -24,13 +24,13 @@ class Menu(tool.State):#모든 시간이 0으로 되어있는 tool의 시간
     def setupOption(self):#맨 처음 옵션을 세팅해줌
 
         frame_rect = [0, 0, 800, 600]
-        self.option_image = tool.get_image(tool.GFX[c.OPTION_NEXT], *frame_rect)#MAIN_MENU_IMAGE 이미지 가지고 와줌
+        self.option_image = tool.get_image(tool.GFX[c.OPTION_GAME_START], *frame_rect)#MAIN_MENU_IMAGE 이미지 가지고 와줌
         self.option_rect = self.option_image.get_rect()#이미지 크기 구해줌
         
         self.option_frame_index = 0#ADVENTURE버튼 위치 설정
         self.option_rect = self.option_image.get_rect()
-        self.option_rect.x = 700 #435
-        self.option_rect.y = 275 #75
+        self.option_rect.x = 638 #435
+        self.option_rect.y = 500 #75
         
         self.option_start = 0
         self.option_timer = 0

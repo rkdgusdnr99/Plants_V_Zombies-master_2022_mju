@@ -40,6 +40,7 @@ PLANT_EXPLANE_IMAGE = 'plantexplane'
 MAIN_MENU_IMAGE = 'MainMenu'
 OPTION_ADVENTURE = 'Adventure'
 OPTION_NEXT = 'next'
+OPTION_GAME_START = 'gamestart'
 GAME_LOOSE_IMAGE = 'GameLoose'
 GAME_VICTORY_IMAGE = 'GameVictory'
 
