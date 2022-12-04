@@ -123,12 +123,17 @@ class Card():
         surface.blit(self.image, self.rect)
 
 class MenuBar():
-    def __init__(self, card_list, sun_value):#카드 리스트랑 햇빛 초기화
+    def __init__(self, card_list, sun_value):
         self.loadFrame(c.MENUBAR_BACKGROUND)
-        self.rect = self.image.get_rect()#이미지 크기 구해줌
+        self.rect = self.image.get_rect()
         self.rect.x = 10
         self.rect.y = 0
-        
+
+        self.shovel = Shovel()
+        self.shovel_image = self.shovel.image
+        self.shovel_rect = self.shovel.rect
+        self.shovel_rect.x = 10 + self.rect.right
+
         self.sun_value = sun_value
         self.card_offset_x = 32
         self.setupCards(card_list)
@@ -177,10 +182,17 @@ class MenuBar():
                     result = (plant_name_list[card.name_index], card)
                 break
         return result
-    
-    def checkMenuBarClick(self, mouse_pos):#메뉴바 클릭범위를 정의하는 함수 같음
+
+    def checkShovel(self, mouse_pos):
         x, y = mouse_pos
-        if(x >= self.rect.x and x <= self.rect.right and
+        if(x >= self.shovel_rect.x and x <= self.shovel_rect.right and
+           y >= self.shovel_rect.y and y <= self.shovel_rect.bottom):
+            return True
+        return False
+#----------------------------------------------------------------------------------------------수정    
+    def checkMenuBarClick(self, mouse_pos):
+        x, y = mouse_pos
+        if(x >= self.rect.x and x <= self.shovel_rect.right and
            y >= self.rect.y and y <= self.rect.bottom):
             return True
         return False
@@ -204,12 +216,13 @@ class MenuBar():
         self.value_rect.y = self.rect.bottom - 21
         
         self.image.blit(self.value_image, self.value_rect)
-
+#-------------------------------------------------------------------수정
     def draw(self, surface):#메뉴판을 그려줌
         self.drawSunValue()
         surface.blit(self.image, self.rect)
         for card in self.card_list:
             card.draw(surface)
+        surface.blit(self.shovel_image, self.shovel_rect)
 
 class Panel():
     def __init__(self, card_list, sun_value):#초기화
@@ -434,3 +447,15 @@ class MoveBar():#LEVEL 5에 관련된 기능임 직접 없애보면 틩기지만
         surface.blit(self.image, self.rect)
         for card in self.card_list:
             card.draw(surface)
+#-----------------------------------------------------------------------------삽 이미지            
+class Shovel():
+    def __init__(self):
+        self.loadFrame(c.SHOVEL)
+        self.rect = self.image.get_rect()
+
+    def loadFrame(self, name):
+        frame = tool.GFX[name]
+        rect = frame.get_rect()
+        frame_rect = (rect.x, rect.y, rect.w, rect.h)
+
+        self.image = tool.get_image(tool.GFX[name], *frame_rect, c.WHITE, 1)

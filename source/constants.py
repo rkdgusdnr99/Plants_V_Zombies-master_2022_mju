@@ -34,7 +34,7 @@ LEVEL = 'level'
 GAME_EXPLANE = 'game explane'
 PLANT_EXPLANE = 'plant explane'
 
-#--------------------------------------------------------------여기요여기
+#--------------------------------------------------------------여기 수정
 FIRST_EXPLANE_IMAGE = 'gameexplane'
 PLANT_EXPLANE_IMAGE = 'plantexplane'
 MAIN_MENU_IMAGE = 'MainMenu'
@@ -65,7 +65,8 @@ MOVEBAR_BACKGROUND = 'MoveBackground'
 PANEL_BACKGROUND = 'PanelBackground'
 START_BUTTON = 'StartButton'
 CARD_POOL = 'card_pool'
-
+SHOVEL = 'Shovel'
+#-------------------------------------------여기도
 MOVEBAR_CARD_FRESH_TIME = 6000
 CARD_MOVE_TIME = 60
 
@@ -102,7 +103,7 @@ WALLNUT_BOWLING_DAMAGE = 10
 PRODUCE_SUN_INTERVAL = 7000
 FLOWER_SUN_INTERVAL = 22000
 SUN_LIVE_TIME = 7000
-SUN_VALUE = 999#--------------------------------------------------------------쇼미더머니
+SUN_VALUE = 25
 
 ICE_SLOW_TIME = 2000
 

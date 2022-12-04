@@ -74,7 +74,7 @@ class Zombie(pg.sprite.Sprite):#pg.sprite.Sprite: 눈에 보이는 게임 객체
                 self.speed = 2#신문지좀비면 속도가 2임(다른 좀비의 2배)
 
         if (self.current_time - self.walk_timer) > (c.ZOMBIE_WALK_INTERVAL * self.getTimeRatio()):
-            self.walk_timer = self.current_time/1000 #크게 곱하면 좀비 속도가 느려지고 크게 나누면 좀비 속도가 빨라짐--------------------------------------------------------
+            self.walk_timer = self.current_time #크게 곱하면 좀비 속도가 느려지고 크게 나누면 좀비 속도가 빨라짐--------------------------------------------------------
             if self.is_hypno:#만일 배신버섯에 감염된 좀비라면 스피드 빨라짐? 하지만 배신버섯에 감염되면 식물의 공격 안받음
                 self.rect.x += self.speed
             else:

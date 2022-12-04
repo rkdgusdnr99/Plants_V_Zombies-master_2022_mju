@@ -113,6 +113,7 @@ class Level(tool.State):
         else:
             self.menubar = menubar.MoveBar(card_list)
         self.drag_plant = False
+        self.delete_plant = False
         self.hint_image = None
         self.hint_plant = False
         if self.background_type == c.BACKGROUND_DAY and self.bar_type == c.CHOOSEBAR_STATIC:
@@ -127,6 +128,7 @@ class Level(tool.State):
         self.setupCars()
 
     def play(self, mouse_pos, mouse_click):
+
         if self.zombie_start_time == 0:
             self.zombie_start_time = self.current_time
         elif len(self.zombie_list) > 0:
@@ -147,12 +149,15 @@ class Level(tool.State):
         self.head_group.update(self.game_info)
         self.sun_group.update(self.game_info)
         
-        if not self.drag_plant and mouse_pos and mouse_click[0]:
+        if not self.drag_plant and mouse_pos and mouse_click[0] and not self.delete_plant:
             result = self.menubar.checkCardClick(mouse_pos)
+            result_sv = self.menubar.checkShovel(mouse_pos)
             if result:
                 self.setupMouseImage(result[0], result[1])
+            elif result_sv:
+                self.delete_plant = True
         elif self.drag_plant:
-            if mouse_click[1]:
+            if mouse_click[1]: 
                 self.removeMouseImage()
             elif mouse_click[0]:
                 if self.menubar.checkMenuBarClick(mouse_pos):
@@ -161,6 +166,14 @@ class Level(tool.State):
                     self.addPlant()
             elif mouse_pos is None:
                 self.setupHintImage()
+        elif self.delete_plant:
+            if mouse_click[1]: 
+                self.delete_plant = False
+            elif mouse_click[0]:
+                if self.menubar.checkMenuBarClick(mouse_pos):
+                    self.delete_plant = False
+                else:
+                    self.DeletePlanet()
         
         if self.produce_sun:
             if(self.current_time - self.sun_timer) > c.PRODUCE_SUN_INTERVAL:
@@ -177,7 +190,6 @@ class Level(tool.State):
             car.update(self.game_info)
 
         self.menubar.update(self.current_time)
-
         self.checkBulletCollisions()
         self.checkZombieCollisions()
         self.checkPlants()
@@ -544,3 +556,20 @@ class Level(tool.State):
 
             if self.drag_plant:
                 self.drawMouseShow(surface)
+
+    def DeletePlanet(self):
+        print("ok1")
+        x, y = pg.mouse.get_pos()
+        map_x, map_y = self.map.getMapIndex(x,y)
+        if map_y in range(self.map_y_len) :
+            print("ok2")
+            for plant in self.plant_groups[map_y]:
+                print(plant.rect.centerx)
+                grid_x = map_x* c.GRID_X_SIZE + c.GRID_X_SIZE//2 + c.MAP_OFFSET_X
+                if plant.name == c.PUFFSHROOM : 
+                    grid_x += 2
+                if plant.rect.centerx == grid_x:
+                    print("ok3")
+                    plant.health = 0
+
+        self.delete_plant = False
